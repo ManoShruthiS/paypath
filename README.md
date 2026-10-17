@@ -24,6 +24,10 @@ Example (PowerShell):
 npm start
 ```
 
+## Deploy on Vercel
+
+Vercel automatically serves `public/` and deploys the serverless endpoints in `api/`. Import this GitHub repository, then add `OPENAI_API_KEY` and `OPENAI_MODEL` as private Vercel environment variables. Do not upload `.env`.
+
 ## Demo path (under 3 minutes)
 
 1. State the problem: buyers face choice overload; agentic buying must remain transparent and buyer-controlled.
