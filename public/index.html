@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PayPath Guardian — Autonomous Agentic Commerce Gateway</title>
-  <meta name="description" content="The policy-governed payment gateway connecting autonomous AI agents to PayPal Sandbox checkout and AG Grid decision matrices.">
+  <meta name="description" content="The policy-governed payment gateway connecting autonomous AI agents to PayPal Sandbox checkout, AG Grid decision matrices, Channel3 product sourcing, and Bryntum delivery workflows.">
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,10 @@
   <!-- AG Grid Community Styles -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@32.2.0/styles/ag-grid.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@32.2.0/styles/ag-theme-quartz.css">
+
+  <!-- Bryntum Styles -->
+  <link rel="stylesheet" href="/bryntum/taskboard.css">
+  <link rel="stylesheet" href="/bryntum/stockholm-dark.css">
   
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="/style.css">
@@ -33,9 +37,11 @@
       </div>
       
       <div class="nav-badges">
-        <span class="status-pill live-pulse"><span class="pulse-dot"></span> PayPal Sandbox v2</span>
-        <span class="status-pill sponsor-pill">AG Grid Matrix</span>
-        <span class="status-pill apimatic-pill" id="openApiModalBtn">APIMatic Spec</span>
+        <span class="status-pill live-pulse"><span class="pulse-dot"></span> PayPal Orders v2</span>
+        <span class="status-pill ag-pill">AG Grid Matrix</span>
+        <span class="status-pill bryntum-pill">Bryntum Workflow</span>
+        <span class="status-pill channel3-pill">Channel3 Catalog</span>
+        <span class="status-pill apimatic-pill" id="openApiModalBtn">APIMatic API</span>
       </div>
     </div>
   </header>
@@ -49,7 +55,7 @@
         <span class="gradient-text">Human-Governed Payments.</span>
       </h1>
       <p class="hero-subtitle">
-        AI agents are ready to buy—but giving them open credit cards is dangerous. PayPath Guardian is the missing financial guardrail: your AI sources, optimizes, and audits in <strong>AG Grid</strong>, while you authorize safely via <strong>PayPal</strong>.
+        AI agents are ready to buy—but giving them open credit cards is dangerous. PayPath Guardian connects <strong>Channel3</strong> product search, <strong>AG Grid</strong> financial audits, and <strong>Bryntum</strong> milestone scheduling to trusted <strong>PayPal Sandbox</strong> settlement.
       </p>
 
       <!-- Agent Command Center Form -->
@@ -79,16 +85,16 @@
         <!-- Preset Scenarios -->
         <div class="preset-scenarios">
           <span class="presets-label">Quick Scenarios:</span>
-          <button class="preset-btn" data-intent="Equip a remote contractor with a mechanical keyboard, ergonomic mouse, and Copilot seat under $200" data-budget="200">
-            💻 Contractor Dev Kit
+          <button class="preset-btn" data-intent="Equip a remote contractor with a mechanical keyboard, ergonomic mouse, and USB-C hub under $200" data-budget="200">
+            💻 Contractor Dev Kit (Channel3)
           </button>
-          <button class="preset-btn" data-intent="Cater a hackathon team lunch with gluten-free bento boxes and cold-pressed juices under $120" data-budget="120">
-            🍱 Team Catering
+          <button class="preset-btn" data-intent="Cater a hackathon team lunch with artisan gluten-free bento boxes and cold-pressed juices under $120" data-budget="120">
+            🍱 Team Catering (Channel3)
           </button>
           <button class="preset-btn" data-intent="Provision an NVIDIA H100 GPU cluster (10h) with persistent cloud storage under $220" data-budget="220">
             🧠 AI Compute Grant
           </button>
-          <button class="preset-btn" data-intent="Send an instant digital recognition gift card and curated book credit to a remote peer under $35" data-budget="35">
+          <button class="preset-btn" data-intent="Send an instant digital recognition gift card and curated book credit to a remote peer under $40" data-budget="40">
             🎁 Teammate Recognition
           </button>
         </div>
@@ -131,7 +137,7 @@
       <div class="grid-card">
         <div class="grid-card-header">
           <div>
-            <h3>Interactive Procurement Ledger</h3>
+            <h3>Interactive Procurement Ledger (AG Grid)</h3>
             <p>Select or adjust items. Pinned totals and PayPal payment amount update dynamically in real time.</p>
           </div>
           <div class="grid-actions">
@@ -141,6 +147,59 @@
         
         <!-- The AG Grid DOM element -->
         <div id="procurementGrid" class="ag-theme-quartz-dark" style="height: 340px; width: 100%;"></div>
+      </div>
+
+      <!-- Bryntum Milestone & Delivery Flow -->
+      <div class="bryntum-card">
+        <div class="bryntum-header">
+          <div>
+            <span class="card-tag">BRYNTUM WORKFLOW TIMELINE</span>
+            <h3>Milestone & Delivery Execution Flow</h3>
+            <p>PayPal settlement acts as the critical gate: subsequent fulfillment tasks remain locked until human payment authorization clears.</p>
+          </div>
+          <div class="gate-status" id="gateStatus">
+            <span class="gate-icon">🔒</span>
+            <span>GATE: Awaiting PayPal Approval</span>
+          </div>
+        </div>
+
+        <div class="bryntum-board" id="bryntumBoard">
+          <div class="board-column">
+            <div class="col-header col-done">1. AI Policy Clearance</div>
+            <div class="task-card card-completed">
+              <strong>Sourcing & Compliance Check</strong>
+              <span>Normalized via Channel3. Risk score: 6/100 (AAA).</span>
+              <div class="card-meta"><span>By: PayPath Guardian</span><span class="chip-success">✓ Completed</span></div>
+            </div>
+          </div>
+
+          <div class="board-column">
+            <div class="col-header col-active">2. PayPal Settlement</div>
+            <div class="task-card card-pending" id="bryntumPaymentCard">
+              <strong>Orders v2 Authorization</strong>
+              <span id="bryntumPaymentDesc">Awaiting human sign-off in PayPal Sandbox.</span>
+              <div class="card-meta"><span>By: Authorized Buyer</span><span class="chip-warning" id="paymentChip">Pending Approval</span></div>
+            </div>
+          </div>
+
+          <div class="board-column">
+            <div class="col-header col-locked">3. Channel3 Fulfillment</div>
+            <div class="task-card card-locked" id="bryntumDispatchCard">
+              <strong>Merchant Dispatch Routing</strong>
+              <span>Locks until PayPal settlement clears. T+24h SLA.</span>
+              <div class="card-meta"><span>By: Channel3 Network</span><span class="chip-locked" id="dispatchChip">🔒 Locked</span></div>
+            </div>
+          </div>
+
+          <div class="board-column">
+            <div class="col-header col-locked">4. Notarization</div>
+            <div class="task-card card-locked" id="bryntumAuditCard">
+              <strong>SHA-256 Audit Seal</strong>
+              <span>Cryptographic registration into immutable ledger.</span>
+              <div class="card-meta"><span>By: Cryptographic Notary</span><span class="chip-locked" id="auditChip">🔒 Locked</span></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Two-Column Checkout & Governance Panel -->
@@ -164,6 +223,13 @@
               <div>
                 <strong>Dynamic AG Grid Allocation</strong>
                 <span>Instant visual audit of every vendor, unit cost, and volume savings.</span>
+              </div>
+            </div>
+            <div class="principle">
+              <span class="principle-icon">⏱️</span>
+              <div>
+                <strong>Bryntum Milestone Gate</strong>
+                <span>Fulfillment phases unlock only when PayPal capture is verified.</span>
               </div>
             </div>
             <div class="principle">
@@ -249,9 +315,9 @@
       <div class="feature-item">
         <div class="feature-header">
           <span class="feature-icon">🤖</span>
-          <h4>Agentic Sourcing</h4>
+          <h4>Channel3 Product AI</h4>
         </div>
-        <p>Decomposes natural language requests into itemized product catalogs with risk scoring and vendor validation.</p>
+        <p>Real-time normalized product search across 100M+ products from 25,000+ certified retailers.</p>
       </div>
 
       <div class="feature-item">
@@ -259,7 +325,15 @@
           <span class="feature-icon">📊</span>
           <h4>AG Grid Decision Matrix</h4>
         </div>
-        <p>Real-time data grid showing match scores, policy badges, checkbox selections, and live pinned total calculations.</p>
+        <p>Interactive table with checkboxes, custom renderers, and live dynamic pinned financial calculations.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-header">
+          <span class="feature-icon">⏱️</span>
+          <h4>Bryntum Milestones</h4>
+        </div>
+        <p>Visual workflow timeline where fulfillment tasks are conditionally gated on PayPal settlement.</p>
       </div>
 
       <div class="feature-item">
@@ -267,15 +341,7 @@
           <span class="feature-icon">💳</span>
           <h4>PayPal Orders v2</h4>
         </div>
-        <p>Secure server-side order creation, sandbox authorization, webhook listening, and cryptographic receipt generation.</p>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-header">
-          <span class="feature-icon">🔌</span>
-          <h4>APIMatic Ready</h4>
-        </div>
-        <p>Complete OpenAPI 3.1 specification for autonomous agents to consume PayPath as a standardized payment tool.</p>
+        <p>Server-side REST API order creation, sandbox authorization, webhook listening, and cryptographic receipts.</p>
       </div>
     </section>
   </main>
@@ -308,8 +374,11 @@
       <div class="footer-links">
         <a href="https://developer.paypal.com" target="_blank">PayPal Developer</a>
         <a href="https://www.ag-grid.com" target="_blank">AG Grid</a>
+        <a href="https://www.bryntum.com" target="_blank">Bryntum</a>
+        <a href="https://www.channel3.com" target="_blank">Channel3</a>
         <a href="https://www.apimatic.io" target="_blank">APIMatic</a>
-        <a href="https://github.com/ManoShruthiS/paypath" target="_blank">GitHub Repository</a>
+        <a href="https://render.com" target="_blank">Render</a>
+        <a href="https://github.com/ManoShruthiS/paypath" target="_blank">GitHub</a>
       </div>
     </div>
   </footer>

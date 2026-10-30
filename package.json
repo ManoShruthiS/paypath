@@ -6,5 +6,8 @@
   "scripts": {
     "start": "node --preserve-symlinks server.mjs",
     "dev": "node --preserve-symlinks --watch server.mjs"
+  },
+  "dependencies": {
+    "@bryntum/taskboard-trial": "^7.3.8"
   }
 }

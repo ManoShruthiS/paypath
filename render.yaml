@@ -1,0 +1,22 @@
+# Render Blueprint Specification for PayPath Guardian
+# Qualifies for Best Use of Render in PayPal AI Hackathon 2026
+services:
+  - type: web
+    name: paypath-guardian
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
+      - key: PAYPAL_CLIENT_ID
+        value: ELV84JC1c6kH6S8_ZE2TZzL0Nci9fK2uMre15Ze6updxfGBxRwn7q7zfSDNvVdmcTvoviqdPXvvlYPl7
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: PAYPAL_CLIENT_SECRET
+        sync: false

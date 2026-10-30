@@ -4,6 +4,7 @@ import { extname, join, normalize } from 'node:path';
 import { generateAgentPlan } from './lib/agent.mjs';
 import { createPayPalOrder, capturePayPalOrder, createAuditReceipt } from './lib/paypal.mjs';
 import { openApiSpec } from './lib/openapi.mjs';
+import { searchChannel3Catalog } from './lib/channel3.mjs';
 
 // Load simple local development variables without adding package dependencies
 try {
@@ -18,12 +19,18 @@ try {
 
 const port = process.env.PORT || 3000;
 const publicDir = join(process.cwd(), 'public');
+const bryntumDir = join(process.cwd(), 'node_modules', '@bryntum', 'taskboard-trial');
+
 const mime = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
+  '.mjs': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
   '.svg': 'image/svg+xml',
-  '.json': 'application/json; charset=utf-8'
+  '.json': 'application/json; charset=utf-8',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf'
 };
 
 function send(res, status, body, type = 'application/json') {
@@ -34,7 +41,7 @@ function send(res, status, body, type = 'application/json') {
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
-  // CORS headers for local/cross-origin preview
+  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -51,8 +58,10 @@ const server = http.createServer(async (req, res) => {
       paypalClientId: process.env.PAYPAL_CLIENT_ID || defaultSandboxId,
       aiEnabled: Boolean(process.env.OPENAI_API_KEY),
       hasServerSecret: Boolean(process.env.PAYPAL_CLIENT_SECRET),
-      version: '2.4.0',
-      sponsorTracks: ['ag-grid', 'apimatic', 'agentic-commerce']
+      channel3Enabled: true,
+      bryntumEnabled: true,
+      version: '2.5.0',
+      sponsorTracks: ['paypal-ai', 'agentic-commerce', 'ag-grid', 'apimatic', 'bryntum', 'channel3', 'render']
     });
   }
 
@@ -61,7 +70,15 @@ const server = http.createServer(async (req, res) => {
     return send(res, 200, openApiSpec);
   }
 
-  // 3. AI Agent Plan generation
+  // 3. Channel3 Product Search endpoint
+  if (req.method === 'GET' && url.pathname === '/api/channel3/search') {
+    const query = url.searchParams.get('q') || 'ergonomic keyboard';
+    const budget = parseFloat(url.searchParams.get('budget')) || 200;
+    const results = await searchChannel3Catalog(query, budget);
+    return send(res, 200, { source: 'Channel3 100M+ Retail API', query, products: results });
+  }
+
+  // 4. AI Agent Plan generation
   if (req.method === 'POST' && url.pathname === '/api/plan') {
     let body = '';
     for await (const chunk of req) body += chunk;
@@ -83,7 +100,7 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 4. Server-Side PayPal Order Creation (Orders v2)
+  // 5. Server-Side PayPal Order Creation (Orders v2)
   if (req.method === 'POST' && url.pathname === '/api/orders/create') {
     let body = '';
     for await (const chunk of req) body += chunk;
@@ -100,7 +117,7 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 5. Server-Side PayPal Order Capture & Audit Receipt
+  // 6. Server-Side PayPal Order Capture & Audit Receipt
   if (req.method === 'POST' && url.pathname === '/api/orders/capture') {
     let body = '';
     for await (const chunk of req) body += chunk;
@@ -119,7 +136,7 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 6. Webhook Listener
+  // 7. Webhook Listener
   if (req.method === 'POST' && url.pathname === '/api/webhooks') {
     let body = '';
     for await (const chunk of req) body += chunk;
@@ -127,7 +144,19 @@ const server = http.createServer(async (req, res) => {
     return send(res, 200, { status: 'RECEIVED', verified: true, timestamp: new Date().toISOString() });
   }
 
-  // Static File Serving
+  // 8. Serve Bryntum TaskBoard assets
+  if (url.pathname.startsWith('/bryntum/')) {
+    const assetPath = url.pathname.replace(/^\/bryntum\//, '');
+    const safeAsset = normalize(assetPath).replace(/^([/\\])+/, '');
+    const file = join(bryntumDir, safeAsset);
+    try {
+      return send(res, 200, await readFile(file), mime[extname(file)] || 'application/octet-stream');
+    } catch {
+      return send(res, 404, 'Bryntum asset not found', 'text/plain');
+    }
+  }
+
+  // 9. Static File Serving
   const requested = url.pathname === '/' ? 'index.html' : normalize(url.pathname).replace(/^([/\\])+/, '');
   const file = join(publicDir, requested);
   if (!file.startsWith(publicDir)) return send(res, 403, 'Forbidden', 'text/plain');
@@ -139,6 +168,6 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(port, () => {
-  console.log(`PayPath Guardian is running at http://localhost:${port}`);
-  console.log(`APIMatic OpenAPI Spec available at http://localhost:${port}/api/docs`);
+  console.log(`PayPath Guardian v2.5 is running at http://localhost:${port}`);
+  console.log(`Sponsor Tracks: PayPal, AG Grid, APIMatic, Bryntum, Channel3, Render`);
 });

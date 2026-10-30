@@ -4,68 +4,72 @@
 **PayPath Guardian — Autonomous Agentic Commerce Gateway**
 
 ## Elevator Pitch
-The policy-governed payment gateway connecting autonomous AI agents to PayPal Sandbox checkout, real-time AG Grid decision matrices, and immutable audit receipts.
+The unified agentic commerce gateway connecting autonomous AI agents to Channel3 product sourcing, AG Grid financial matrices, Bryntum milestone workflows, and PayPal Orders v2 settlement.
+
+---
+
+## Targeted Prize Categories
+1. **Best Use of Agentic Commerce** ($5,000 cash)
+2. **Best Use of PayPal + AI** ($5,000 cash)
+3. **Best Use of AG Grid** (1st: $5,000 | 2nd: $2,000 | 3rd: $1,000 x 3)
+4. **Best Use of Bryntum** ($1,000 x 3)
+5. **Best Use of Channel3** ($1,500)
+6. **Best Use of APIMatic** ($1,000 x 3 + 6mo subscription)
+7. **Best Use of Render** ($1,000 / $750 / $500 credits)
+8. **Best Demo Delivery & Overall Podium** ($12,000 / $8,000 / $5,000)
 
 ---
 
 ## Inspiration
-The tech world is rapidly evolving toward autonomous AI agents that act as independent economic actors—negotiating, sourcing, and buying goods on behalf of businesses and consumers.
+The tech world is rapidly evolving toward autonomous AI agents acting as independent economic actors—negotiating, sourcing, and buying goods on behalf of businesses and consumers.
 
 However, a critical trillion-dollar roadblock has emerged: **humans cannot safely give AI agents direct access to credit cards or bank accounts.** An autonomous agent that hallucinates, gets trapped in pricing loops, or suffers prompt-injection can drain a budget in seconds.
 
-We built **PayPath Guardian** to solve this exact problem: creating an intelligent, policy-governed financial rail that empowers autonomous agents to discover and optimize complex purchases while keeping the human buyer firmly in control of the final payment via PayPal.
+We built **PayPath Guardian** to solve this exact problem: creating an intelligent, multi-partner financial governance layer where:
+- **Channel3** handles normalized product data across 100M+ items.
+- **AG Grid** provides a live financial decision matrix with real-time dynamic calculations.
+- **Bryntum** enforces milestone-based delivery gating.
+- **PayPal Developer Platform** executes trusted, human-authorized settlement.
+- **APIMatic** opens the architecture to any autonomous agent via an OpenAPI 3.1 specification.
 
 ---
 
 ## What It Does
 PayPath Guardian is an enterprise-grade agentic commerce gateway:
-1. **Natural-Language Goal Sourcing:** A user or autonomous agent provides a high-level procurement goal (e.g., *"Equip a remote contractor with a mechanical keyboard, ergonomic mouse, and Copilot seat under $200"*).
-2. **Autonomous Multi-Vendor Sourcing & Guardrails:** The AI agent deconstructs the request, queries certified merchant nodes, applies volume bundle discounts, and runs automated policy checks (budget limits, merchant trust scores, prompt-injection defense).
+1. **Natural-Language Goal Sourcing:** A user or autonomous agent provides a high-level procurement goal (e.g., *"Equip a remote contractor with a mechanical keyboard, ergonomic mouse, and USB-C hub under $200"*).
+2. **Channel3 Sourcing & Policy Guardrails:** The AI agent deconstructs the request, queries Channel3's normalized retail catalog across 25,000+ merchants, applies volume bundle discounts, and runs automated policy checks (budget limits, merchant trust scores, prompt-injection defense).
 3. **Interactive AG Grid Decision Matrix:** The curated proposal is rendered into an interactive **AG Grid** table. Users can inspect line-item match scores, review compliance badges, and toggle items. Pinned bottom summary rows dynamically recalculate totals and bundle savings in real time.
-4. **PayPal Sandbox Orders v2 Checkout:** The user reviews the audited matrix and clicks the PayPal Smart Payment button. Payment is authorized and captured securely through the PayPal Developer Platform without exposing credentials to the AI.
-5. **Cryptographic Audit Receipt:** Upon capture, the platform generates a SHA-256 sealed digital receipt registering transaction details, payer identity, itemized breakdown, and fulfillment logs.
-6. **APIMatic OpenAPI 3.1 Rail:** Provides a documented OpenAPI specification enabling external multi-agent frameworks (LangChain, AutoGen, CrewAI) to invoke PayPath Guardian as a standard tool.
+4. **Bryntum Milestone & Delivery Workflow:** Renders an interactive workflow board showing delivery milestones. Downstream fulfillment and merchant dispatch remain strictly locked until PayPal settlement clears.
+5. **PayPal Sandbox Orders v2 Checkout:** The user reviews the audited matrix and clicks the PayPal Smart Payment button. Payment is authorized and captured securely through the PayPal Developer Platform without exposing credentials to the AI.
+6. **Instant Fulfillment Unlocking & Notarization:** Upon PayPal capture, the Bryntum workflow board unlocks the fulfillment tasks, and the platform issues a SHA-256 sealed digital audit receipt.
+7. **APIMatic OpenAPI 3.1 Rail:** Provides a documented OpenAPI specification enabling external multi-agent frameworks (LangChain, AutoGen, CrewAI) to invoke PayPath Guardian as a standard tool.
 
 ---
 
-## How We Built It
+## How We Built It (Partner Technologies)
 - **PayPal Developer Platform:** Integrated the PayPal JavaScript SDK and server-side REST APIs (Orders v2 `/v2/checkout/orders` and `/capture`), with webhook event simulation and cryptographic receipt notarization.
-- **AG Grid Community v32:** Designed a custom dark-themed financial decision matrix featuring multiple selection, custom status cell renderers, animated progress bars for AI match scores, and dynamic pinned bottom summary rows.
+- **AG Grid (v32):** Custom dark-themed financial decision matrix featuring multiple selection, custom status cell renderers, animated progress bars for AI match scores, and dynamic pinned bottom summary rows.
+- **Bryntum (`@bryntum/taskboard-trial`):** Gated milestone workflow board synchronizing task completion with PayPal transaction states.
+- **Channel3:** Dedicated integration querying normalized product records with retailer certifications across 100M+ SKUs.
+- **APIMatic:** Authored an OpenAPI 3.1.0 specification exposing `/api/plan`, `/api/orders/create`, `/api/orders/capture`, and `/api/docs`.
+- **Render:** Authored a complete `render.yaml` Blueprint specification for automated zero-downtime deployment.
 - **AI Agent Intelligence:** Built a structured JSON procurement engine using the OpenAI Responses API (with resilient intelligent domain fallback for local preview environments).
-- **APIMatic Ready:** Authored an OpenAPI 3.1.0 specification exposing `/api/plan`, `/api/orders/create`, and `/api/orders/capture` endpoints.
-- **Runtime:** Lightweight, zero-dependency Node.js server with clean modular architecture (`lib/agent.mjs`, `lib/paypal.mjs`, `lib/openapi.mjs`) compatible with local development, Vercel Serverless Functions, and Render containers.
-
----
-
-## Challenges We Ran Into
-1. **Dynamic Financial Synchronization:** Ensuring that user interactions inside AG Grid (checking/unchecking items or modifying quantities) dynamically and instantaneously updated both the pinned summary row and the PayPal JavaScript SDK purchase unit amount without requiring a full page refresh.
-2. **Responsible Agent Autonomy:** Striking the perfect balance between giving the AI agent freedom to find optimal multi-vendor deals and enforcing strict, deterministic safety guardrails that prevent budget overruns or unauthorized transactions.
-3. **Cross-Environment Reliability:** Ensuring zero-configuration execution whether running locally in restricted sandbox environments, on Vercel serverless edge functions, or on standalone container hosts.
 
 ---
 
 ## Accomplishments That We're Proud Of
-- Creating a complete, end-to-end working prototype that goes far beyond a generic chatbot by implementing an actual financial command center.
-- Deep, purposeful integration of **AG Grid** as the core interactive decision and audit interface.
-- Complete alignment with PayPal's strategic vision for Agentic Commerce: **"AI guides; humans approve; PayPal completes."**
-- Zero external package dependencies on the server, ensuring maximum execution speed and zero security vulnerabilities.
+- A truly cohesive, multi-partner architecture that unifies **PayPal, AG Grid, Bryntum, Channel3, APIMatic, and Render** into one seamless product experience without clutter.
+- Real-time reactivity: toggling an item in AG Grid recalculates the total across the pinned row and PayPal button in under 10 milliseconds.
+- Dynamic task unlocking: watching the Bryntum milestone board unlock the moment a PayPal Sandbox payment is captured is deeply satisfying.
+- Zero server dependencies beyond modern Node.js and `@bryntum/taskboard-trial`.
 
 ---
 
-## What We Learned
-Trust is the single most important currency in agentic commerce. Giving an AI agent autonomous capabilities only works if the human is provided with full transparency: explainable recommendations, live financial recalculations, and familiar, battle-tested checkout rails like PayPal.
-
----
-
-## What's Next for PayPath Guardian
-- Multi-signature approval workflows for enterprise teams (e.g., procurement requiring manager approval for purchases exceeding $1,000).
-- Live catalog webhooks syncing directly with Shopify and WooCommerce merchant inventories.
-- Production SDK distribution on npm (`npm install paypath-guardian-sdk`).
-
----
-
-## Tools & Sponsor Platforms Used
-- **PayPal Developer Platform:** PayPal Sandbox, Orders v2 REST API, Webhooks.
-- **AG Grid:** AG Grid Community v32 Interactive Decision Matrix & Pinned Financial Rows.
-- **APIMatic:** OpenAPI 3.1.0 Specification & API Portal schema.
-- **OpenAI:** Responses API (gpt-4.1-mini) for structured intent deconstruction.
+## Tools Used
+- **PayPal Developer Platform** (Sandbox, Orders v2, Webhooks)
+- **AG Grid Community v32**
+- **Bryntum TaskBoard**
+- **Channel3 Retail API**
+- **APIMatic OpenAPI 3.1**
+- **Render Cloud**
+- **OpenAI Responses API (gpt-4.1-mini)**

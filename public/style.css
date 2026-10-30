@@ -108,17 +108,18 @@ body {
 .nav-badges {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .status-pill {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: 100px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   color: var(--text-muted);
@@ -130,11 +131,11 @@ body {
 }
 
 .pulse-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   background: var(--accent-emerald);
   border-radius: 50%;
-  box-shadow: 0 0 10px var(--accent-emerald);
+  box-shadow: 0 0 8px var(--accent-emerald);
   animation: pulse 2s infinite;
 }
 
@@ -143,21 +144,11 @@ body {
   50% { opacity: 0.4; transform: scale(0.85); }
 }
 
-.sponsor-pill {
-  color: var(--accent-gold);
-  border-color: rgba(251, 191, 36, 0.3);
-}
-
-.apimatic-pill {
-  color: var(--accent-cyan);
-  border-color: rgba(56, 189, 248, 0.3);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.apimatic-pill:hover {
-  background: rgba(56, 189, 248, 0.15);
-}
+.ag-pill { color: var(--accent-gold); border-color: rgba(251, 191, 36, 0.3); }
+.bryntum-pill { color: #f43f5e; border-color: rgba(244, 63, 94, 0.3); }
+.channel3-pill { color: #a855f7; border-color: rgba(168, 85, 247, 0.3); }
+.apimatic-pill { color: var(--accent-cyan); border-color: rgba(56, 189, 248, 0.3); cursor: pointer; transition: all 0.2s; }
+.apimatic-pill:hover { background: rgba(56, 189, 248, 0.15); }
 
 /* Main Content */
 .main-content {
@@ -614,6 +605,147 @@ textarea#intentInput:focus {
   height: 100%;
   background: linear-gradient(90deg, var(--accent-cyan), var(--accent-emerald));
   border-radius: 100px;
+}
+
+/* Bryntum Workflow Card */
+.bryntum-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 30px;
+}
+
+.bryntum-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.bryntum-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.bryntum-header p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.gate-status {
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  color: var(--accent-gold);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gate-status.unlocked {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: var(--accent-emerald);
+}
+
+.bryntum-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.board-column {
+  background: rgba(8, 12, 20, 0.7);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+}
+
+.col-header {
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.col-done { color: var(--accent-emerald); }
+.col-active { color: var(--accent-gold); }
+.col-locked { color: var(--text-dim); }
+
+.task-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.25s;
+}
+
+.task-card strong {
+  font-size: 13px;
+  color: var(--text-main);
+}
+
+.task-card span {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 10px;
+  font-family: var(--font-mono);
+}
+
+.chip-success {
+  color: var(--accent-emerald);
+  background: rgba(16, 185, 129, 0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.chip-warning {
+  color: var(--accent-gold);
+  background: rgba(251, 191, 36, 0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.chip-locked {
+  color: var(--text-dim);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.card-completed {
+  border-left: 3px solid var(--accent-emerald);
+}
+
+.card-pending {
+  border-left: 3px solid var(--accent-gold);
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.1);
+}
+
+.card-locked {
+  opacity: 0.6;
+  border-left: 3px solid var(--text-dim);
 }
 
 /* Checkout Layout */
