@@ -4,6 +4,17 @@
 
 Finish and submit a competitive entry for the **PayPal AI Hackathon**. The deadline stated by the user is **October 18, 2026**. The project is an AI-assisted checkout concierge called **PayPath**.
 
+## Latest status — read this first
+
+- **GitHub repository:** `https://github.com/ManoShruthiS/paypath`
+- **Latest ready deployment:** `https://paypath-5ih17khil-mahi-77d1.vercel.app`
+- **Stable Git integration alias:** `https://paypath-git-main-mahi-77d1.vercel.app`
+- **Vercel project:** `paypath`, team `Mahi` / `mahi-77d1`, project id `prj_IFeqHb5OJ3iiRh7dxJ9NvhTAgVqs`.
+- The latest deployment is **READY** and uses GitHub commit `87538b5d4253b873aaa50486d964ae90e1bb77ea` (`Show live AI connection status in checkout`).
+- `OPENAI_API_KEY` and `OPENAI_MODEL` are configured in Vercel as sensitive variables for **production, preview, and development**. Do not read, print, ask for, or overwrite their values.
+- The user must now open the latest URL, enter a fresh prompt, and look at the small label above the result title. It says either **LIVE AI RECOMMENDATION** or **DEMO MODE — AI KEY NOT CONNECTED**. This is the next critical verification step.
+- Do **not** claim a prize is guaranteed. Be candid that the app must be live-tested, PayPal Sandbox-tested, video-recorded, and submitted before it is competitive.
+
 ## Project location
 
 `C:\Users\manos\Documents\Codex\2026-10-17\hi\outputs\PayPath`
@@ -27,6 +38,9 @@ Core pitch: **“AI guides; people approve; PayPal completes.”**
 | `public/index.html` | Interface and product narrative. |
 | `public/app.js` | Calls the planning API and renders PayPal JS SDK buttons. |
 | `public/style.css` | Finished responsive visual design. |
+| `api/config.mjs` | Vercel Serverless Function exposing non-secret client configuration. |
+| `api/plan.mjs` | Vercel Serverless Function that calls the OpenAI Responses API privately. |
+| `vercel.json` | Vercel function configuration. |
 | `.env` | User-created private configuration. **Never commit, display, or request its contents.** |
 | `.gitignore` | Excludes `.env` and dependencies. |
 | `README.md` | Local setup and product explanation. |
@@ -39,6 +53,7 @@ Core pitch: **“AI guides; people approve; PayPal completes.”**
 - A PayPal **Sandbox** developer app exists. Its public client ID is already configured in `server.mjs` as a fallback, and may be overridden by `PAYPAL_CLIENT_ID` in deployment settings.
 - PayPal Sandbox Business and Personal test accounts exist. Their credentials are private. Do not request them in chat; direct the user to use the personal Sandbox account during checkout testing.
 - The user created an OpenAI API key and saved it privately in `.env` as `OPENAI_API_KEY`.
+- The same OpenAI settings were added to Vercel. They are sensitive and their values must never be read or disclosed.
 - `.env` also sets `OPENAI_MODEL=gpt-4.1-mini`. If the deployment reports a model-access error, have the user set a model available to their API project; do not ask them to paste their key.
 
 ## Verified behaviour
@@ -49,6 +64,8 @@ Core pitch: **“AI guides; people approve; PayPal completes.”**
 - Syntax checks for `server.mjs` and `public/app.js` passed.
 - The local Codex Windows environment blocks outbound network calls from Node (`fetch` fails with `EACCES`). This is an environment restriction, **not a bad API key or application bug**.
 - Therefore local preview intentionally falls back to a clearly labelled offline preview when OpenAI cannot be reached. On an ordinary hosting platform, it should make the live OpenAI request.
+- Vercel deployment routes were added under `api/`, because a long-running local Node server is not the correct Vercel runtime shape.
+- The UI now displays **LIVE AI RECOMMENDATION** for a successful OpenAI response and **DEMO MODE — AI KEY NOT CONNECTED** for the fallback. This avoids accidentally presenting demo data as live AI to judges.
 
 ## Important honesty rule
 
@@ -66,17 +83,12 @@ git -c safe.directory='C:/Users/manos/Documents/Codex/2026-10-17/hi/outputs/PayP
 
 ## Immediate priority plan
 
-1. Create a **public** GitHub repository named `paypath` (the user has a GitHub account but has not created the repo yet).
-2. Commit and push this folder. Verify `.env` is not tracked.
-3. Deploy to Vercel or another Node-compatible host. Vercel is the recommended route.
-4. Set deployment environment variables privately:
-   - `OPENAI_API_KEY` — user enters this, never the agent
-   - `OPENAI_MODEL` — initially `gpt-4.1-mini`
-   - optionally `PAYPAL_CLIENT_ID` — already embedded as a public Sandbox fallback
-5. Open the deployed URL and test one real AI recommendation. Fix model or billing errors only if the deployment response gives a precise error.
-6. Test PayPal Sandbox checkout using the user’s Personal Sandbox account. Do not make any real payment.
-7. Capture a clean deployed demo, not the local offline-preview notice.
-8. Use `SUBMISSION.md` for Devpost text and the under-three-minute demo script.
+1. Open the latest deployed URL and test a fresh prompt; get a screenshot with the Live-AI status label visible.
+2. If it says `DEMO MODE`, inspect Vercel environment-variable scope and whether the user pasted the actual API key. Never request or inspect the secret value. Redeploy after any scope/value change.
+3. If it says `LIVE AI RECOMMENDATION`, test the PayPal Sandbox button using the user’s personal Sandbox account. Do not use a real payment.
+4. Improve only what is needed for the final demo—do not risk the working deployment with broad refactors.
+5. Capture a clean deployed demo, not a local offline-preview notice.
+6. Use `SUBMISSION.md` for Devpost text and the under-three-minute demo script.
 
 ## Suggested improvements if time remains
 
@@ -93,4 +105,4 @@ The entry must meaningfully use both PayPal and AI, provide a functional demo, p
 
 ## Paste-ready prompt for a new agent
 
-> Continue the PayPath hackathon project from `C:\Users\manos\Documents\Codex\2026-10-17\hi\outputs\PayPath`. Read `HANDOFF.md`, `README.md`, and `SUBMISSION.md` first. The user needs a competitive PayPal AI Hackathon submission by October 18, 2026. The project already has a polished Node/vanilla-JS app, a PayPal Sandbox client ID configured, and an OpenAI key in a private `.env` file. Never expose or request secret values. Local Node networking is blocked in this Codex environment, so deploy before judging whether the OpenAI integration works. Help create and push a public GitHub repo, deploy to Vercel, configure secrets only through private environment settings, test live AI plus PayPal Sandbox checkout, and finish the Devpost/video materials. Be honest: local fallback is not live AI. Prioritize an end-to-end deployed demo over nonessential refactors.
+> Continue the PayPath hackathon project from `C:\Users\manos\Documents\Codex\2026-10-17\hi\outputs\PayPath`. Read `HANDOFF.md`, `README.md`, and `SUBMISSION.md` first. The GitHub repo is `https://github.com/ManoShruthiS/paypath`; the latest Vercel deployment is `https://paypath-5ih17khil-mahi-77d1.vercel.app`, and it is READY. The app includes a visible status label: `LIVE AI RECOMMENDATION` means the OpenAI integration works; `DEMO MODE — AI KEY NOT CONNECTED` means it does not. The user has set Vercel secret variables, but their values must never be requested, read, printed, or committed. First obtain the screenshot showing which mode the deployed app is in. Then test PayPal Sandbox checkout only after Live AI is confirmed. Do not claim a prize is guaranteed; prioritize an honest, end-to-end demo, polished video, and Devpost submission before nonessential refactors.

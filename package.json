@@ -1,10 +1,10 @@
 {
   "name": "paypath",
-  "version": "1.0.0",
+  "version": "2.4.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node server.mjs",
-    "dev": "node --watch server.mjs"
+    "start": "node --preserve-symlinks server.mjs",
+    "dev": "node --preserve-symlinks --watch server.mjs"
   }
 }

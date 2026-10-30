@@ -1,5 +1,322 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>PayPath — AI checkout concierge</title><link rel="stylesheet" href="/style.css"></head><body>
-<main><nav><a class="brand" href="#">pay<span>path</span></a><div class="badge">● Built with AI + PayPal</div></nav>
-<section class="hero"><div class="eyebrow">COMMERCE, WITHOUT THE FRICTION</div><h1>Tell us what you need.<br><em>We’ll find the path to yes.</em></h1><p class="lede">PayPath is an AI commerce concierge that converts messy buyer intent into a transparent, ready-to-pay checkout — with the buyer always in control.</p><div class="prompt"><label for="intent">What are you trying to buy or accomplish?</label><textarea id="intent" maxlength="420" placeholder="Example: I need a simple way to thank a remote teammate today, under $30."></textarea><div class="prompt-foot"><span id="aiStatus">AI concierge ready</span><button id="build">Build my checkout <b>→</b></button></div></div><div class="examples"><button data-example="I need to thank a remote teammate today, under $30.">Team thank-you</button><button data-example="Help me get started with a creator business without overthinking it.">Creator launch</button><button data-example="I need a thoughtful gift that I can send instantly.">Instant gift</button></div></section>
-<section id="result" class="result hidden"><div class="result-label">YOUR PERSONALIZED PATH</div><div class="card"><div><p class="muted">RECOMMENDED CHECKOUT</p><h2 id="title"></h2><p id="reason"></p><ul id="steps"></ul></div><div class="checkout"><div class="total"><span>Simple, upfront price</span><strong>$<span id="price"></span></strong></div><div id="paypal-button-container"></div><p id="paypal-note" class="paypal-note"></p></div></div><div class="impact"><span>WHY IT MATTERS</span><p id="impact"></p></div></section>
-<section class="proof"><div><strong>Buyer-first AI</strong><span>Explains its recommendation</span></div><div><strong>Human-approved payment</strong><span>PayPath never pays on your behalf</span></div><div><strong>PayPal Sandbox checkout</strong><span>Secure, familiar completion</span></div></section></main><footer>PAYPATH · A PayPal AI Hackathon prototype · <a href="https://developer.paypal.com/" target="_blank">PayPal Developer</a></footer><script src="/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PayPath Guardian — Autonomous Agentic Commerce Gateway</title>
+  <meta name="description" content="The policy-governed payment gateway connecting autonomous AI agents to PayPal Sandbox checkout and AG Grid decision matrices.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- AG Grid Community Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@32.2.0/styles/ag-grid.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@32.2.0/styles/ag-theme-quartz.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="glow-bg"></div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-shield">🛡️</div>
+        <div>
+          <span class="brand-name">PayPath<span class="brand-highlight">.Guardian</span></span>
+          <span class="brand-tag">Autonomous Agentic Commerce</span>
+        </div>
+      </div>
+      
+      <div class="nav-badges">
+        <span class="status-pill live-pulse"><span class="pulse-dot"></span> PayPal Sandbox v2</span>
+        <span class="status-pill sponsor-pill">AG Grid Matrix</span>
+        <span class="status-pill apimatic-pill" id="openApiModalBtn">APIMatic Spec</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-badge">BUILT FOR THE PAYPAL AI HACKATHON 2026</div>
+      <h1 class="hero-title">
+        Autonomous Commerce.<br>
+        <span class="gradient-text">Human-Governed Payments.</span>
+      </h1>
+      <p class="hero-subtitle">
+        AI agents are ready to buy—but giving them open credit cards is dangerous. PayPath Guardian is the missing financial guardrail: your AI sources, optimizes, and audits in <strong>AG Grid</strong>, while you authorize safely via <strong>PayPal</strong>.
+      </p>
+
+      <!-- Agent Command Center Form -->
+      <div class="agent-console">
+        <div class="console-header">
+          <span class="console-label">AGENT INTENT & PROCUREMENT CONSOLE</span>
+          <span class="console-mode" id="aiModeBadge">AI Agent: Ready</span>
+        </div>
+        
+        <div class="console-body">
+          <label for="intentInput" class="input-label">What should the agent source or procure?</label>
+          <textarea id="intentInput" rows="3" placeholder="Example: Equip a remote contractor with a mechanical keyboard, ergonomic mouse, and Copilot seat under $200."></textarea>
+          
+          <div class="console-controls">
+            <div class="budget-field">
+              <label for="budgetInput">Budget Cap ($ USD):</label>
+              <input type="number" id="budgetInput" value="200" min="10" max="5000" step="5">
+            </div>
+            
+            <button id="runAgentBtn" class="primary-btn">
+              <span class="btn-icon">⚡</span>
+              <span id="btnText">Deploy Procurement Agent</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Preset Scenarios -->
+        <div class="preset-scenarios">
+          <span class="presets-label">Quick Scenarios:</span>
+          <button class="preset-btn" data-intent="Equip a remote contractor with a mechanical keyboard, ergonomic mouse, and Copilot seat under $200" data-budget="200">
+            💻 Contractor Dev Kit
+          </button>
+          <button class="preset-btn" data-intent="Cater a hackathon team lunch with gluten-free bento boxes and cold-pressed juices under $120" data-budget="120">
+            🍱 Team Catering
+          </button>
+          <button class="preset-btn" data-intent="Provision an NVIDIA H100 GPU cluster (10h) with persistent cloud storage under $220" data-budget="220">
+            🧠 AI Compute Grant
+          </button>
+          <button class="preset-btn" data-intent="Send an instant digital recognition gift card and curated book credit to a remote peer under $35" data-budget="35">
+            🎁 Teammate Recognition
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Real-Time Agent Execution Trace HUD -->
+    <section id="agentHud" class="agent-hud hidden">
+      <div class="hud-header">
+        <div class="hud-title">
+          <span class="spinner-icon"></span>
+          <span>AGENT EXECUTION TRACE & POLICY SUPERVISOR</span>
+        </div>
+        <span class="hud-status" id="hudStatus">Processing...</span>
+      </div>
+      <div class="hud-terminal" id="hudLogs">
+        <!-- Streaming logs populated by app.js -->
+      </div>
+    </section>
+
+    <!-- Main Results & AG Grid Command Center -->
+    <section id="resultsSection" class="results-section hidden">
+      <div class="section-title-bar">
+        <div>
+          <span class="eyebrow">AGENT DECISION MATRIX</span>
+          <h2 id="planSummary">Procurement Proposal</h2>
+        </div>
+        <div class="policy-badge" id="policyBadge">
+          <span class="badge-icon">✓</span>
+          <span id="policyText">POLICY AUDIT: PASSED (RISK SCORE 6/100)</span>
+        </div>
+      </div>
+
+      <!-- Policy Guardrail Cards -->
+      <div class="guardrail-cards" id="guardrailChecks">
+        <!-- Dynamically injected guardrail checks -->
+      </div>
+
+      <!-- AG Grid Decision Table Section -->
+      <div class="grid-card">
+        <div class="grid-card-header">
+          <div>
+            <h3>Interactive Procurement Ledger</h3>
+            <p>Select or adjust items. Pinned totals and PayPal payment amount update dynamically in real time.</p>
+          </div>
+          <div class="grid-actions">
+            <span class="grid-counter" id="itemCounter">0 items selected</span>
+          </div>
+        </div>
+        
+        <!-- The AG Grid DOM element -->
+        <div id="procurementGrid" class="ag-theme-quartz-dark" style="height: 340px; width: 100%;"></div>
+      </div>
+
+      <!-- Two-Column Checkout & Governance Panel -->
+      <div class="checkout-layout">
+        <!-- Left: Governance Rationale -->
+        <div class="governance-card">
+          <div class="card-tag">GOVERNANCE & IMPACT</div>
+          <h3>Why This Agentic Path?</h3>
+          <p id="impactText" class="impact-quote"></p>
+          
+          <div class="trust-principles">
+            <div class="principle">
+              <span class="principle-icon">🔒</span>
+              <div>
+                <strong>Zero Autonomous Spending</strong>
+                <span>The AI cannot draw funds; only the human buyer authorizes checkout.</span>
+              </div>
+            </div>
+            <div class="principle">
+              <span class="principle-icon">📊</span>
+              <div>
+                <strong>Dynamic AG Grid Allocation</strong>
+                <span>Instant visual audit of every vendor, unit cost, and volume savings.</span>
+              </div>
+            </div>
+            <div class="principle">
+              <span class="principle-icon">⚡</span>
+              <div>
+                <strong>Server-Side PayPal Orders v2</strong>
+                <span>Real-time cryptographic capture and instant webhook receipt verification.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: PayPal Checkout Terminal -->
+        <div class="checkout-card">
+          <div class="card-tag">HUMAN AUTHORIZATION TERMINAL</div>
+          <div class="checkout-pricing">
+            <div class="price-row">
+              <span>Catalog Subtotal:</span>
+              <strong id="subtotalDisplay">$0.00</strong>
+            </div>
+            <div class="price-row savings-row">
+              <span>Agent Bundle Savings:</span>
+              <strong id="savingsDisplay">-$0.00</strong>
+            </div>
+            <div class="price-divider"></div>
+            <div class="price-row final-row">
+              <span>Approved Total (USD):</span>
+              <strong id="finalPriceDisplay">$0.00</strong>
+            </div>
+          </div>
+
+          <!-- PayPal Buttons Container -->
+          <div id="paypalButtonContainer" class="paypal-container"></div>
+          
+          <div id="paypalStatusMessage" class="paypal-status"></div>
+          <p class="sandbox-note">
+            🛡️ <strong>PayPal Sandbox Active:</strong> Use any PayPal Sandbox Personal test account to approve. No real funds charged.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cryptographic Audit Receipt Modal / Section -->
+    <section id="receiptSection" class="receipt-section hidden">
+      <div class="receipt-card">
+        <div class="receipt-badge">PAYMENT SETTLED & NOTARIZED</div>
+        <h2>Cryptographic Audit Receipt</h2>
+        <p class="receipt-subtitle">Transaction verified via PayPal Sandbox REST API v2 and registered into the immutable audit ledger.</p>
+
+        <div class="receipt-grid">
+          <div class="receipt-item">
+            <label>Receipt ID</label>
+            <span id="receiptId" class="receipt-mono"></span>
+          </div>
+          <div class="receipt-item">
+            <label>PayPal Order ID</label>
+            <span id="receiptOrderId" class="receipt-mono"></span>
+          </div>
+          <div class="receipt-item">
+            <label>Authorized Payer</label>
+            <span id="receiptPayer"></span>
+          </div>
+          <div class="receipt-item">
+            <label>Total Settled</label>
+            <span id="receiptAmount" class="receipt-total"></span>
+          </div>
+        </div>
+
+        <div class="receipt-hash-box">
+          <label>SHA-256 Cryptographic Audit Seal</label>
+          <code id="receiptSeal"></code>
+        </div>
+
+        <div class="receipt-actions">
+          <button id="downloadReceiptBtn" class="secondary-btn">Download Audit JSON</button>
+          <button id="resetDemoBtn" class="primary-btn">Start New Procurement Goal</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture & Features Showcase -->
+    <section class="features-showcase">
+      <div class="feature-item">
+        <div class="feature-header">
+          <span class="feature-icon">🤖</span>
+          <h4>Agentic Sourcing</h4>
+        </div>
+        <p>Decomposes natural language requests into itemized product catalogs with risk scoring and vendor validation.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-header">
+          <span class="feature-icon">📊</span>
+          <h4>AG Grid Decision Matrix</h4>
+        </div>
+        <p>Real-time data grid showing match scores, policy badges, checkbox selections, and live pinned total calculations.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-header">
+          <span class="feature-icon">💳</span>
+          <h4>PayPal Orders v2</h4>
+        </div>
+        <p>Secure server-side order creation, sandbox authorization, webhook listening, and cryptographic receipt generation.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-header">
+          <span class="feature-icon">🔌</span>
+          <h4>APIMatic Ready</h4>
+        </div>
+        <p>Complete OpenAPI 3.1 specification for autonomous agents to consume PayPath as a standardized payment tool.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- APIMatic OpenAPI Modal -->
+  <div id="apiModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="modal-icon">🔌</span>
+          <h3>PayPath APIMatic OpenAPI 3.1 Specification</h3>
+        </div>
+        <button id="closeApiModalBtn" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>This API enables external AI agents (LangChain, AutoGen, CrewAI) to call PayPath as an autonomous procurement and checkout tool.</p>
+        <div class="code-tabs">
+          <span class="tab active">OpenAPI 3.1 Schema</span>
+          <a href="/api/docs" target="_blank" class="tab-link">Open Raw JSON ↗</a>
+        </div>
+        <pre class="code-block"><code id="openApiContent">Loading OpenAPI specification...</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div>PayPath Guardian · Built for the <strong>PayPal AI Hackathon 2026</strong></div>
+      <div class="footer-links">
+        <a href="https://developer.paypal.com" target="_blank">PayPal Developer</a>
+        <a href="https://www.ag-grid.com" target="_blank">AG Grid</a>
+        <a href="https://www.apimatic.io" target="_blank">APIMatic</a>
+        <a href="https://github.com/ManoShruthiS/paypath" target="_blank">GitHub Repository</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AG Grid Community JS Library -->
+  <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@32.2.0/dist/ag-grid-community.min.js"></script>
+  <!-- Application Logic -->
+  <script src="/app.js"></script>
+</body>
+</html>

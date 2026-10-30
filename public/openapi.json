@@ -1,0 +1,64 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PayPath Guardian — Agentic Commerce & Procurement API",
+    "version": "2.4.0",
+    "description": "An enterprise API rail connecting autonomous AI agents to policy-governed PayPal Sandbox checkout, real-time AG Grid decision matrices, and immutable audit receipts.",
+    "contact": {
+      "name": "PayPath Team",
+      "url": "https://github.com/ManoShruthiS/paypath"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://paypath-git-main-mahi-77d1.vercel.app",
+      "description": "Production Vercel deployment"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Local development server"
+    }
+  ],
+  "paths": {
+    "/api/config": {
+      "get": {
+        "summary": "Retrieve client configuration",
+        "description": "Returns public PayPal Client ID, AI model status, and runtime capabilities.",
+        "responses": {
+          "200": { "description": "Configuration details" }
+        }
+      }
+    },
+    "/api/plan": {
+      "post": {
+        "summary": "Generate an autonomous procurement plan",
+        "description": "Transforms natural language intent into an itemized, policy-audited commerce matrix.",
+        "responses": {
+          "200": { "description": "Structured procurement matrix" }
+        }
+      }
+    },
+    "/api/orders/create": {
+      "post": {
+        "summary": "Create a PayPal Sandbox order",
+        "description": "Creates an itemized order on PayPal Developer platform via Orders v2 API.",
+        "responses": {
+          "200": { "description": "PayPal order created" }
+        }
+      }
+    },
+    "/api/orders/capture": {
+      "post": {
+        "summary": "Capture and verify a PayPal Sandbox order",
+        "description": "Captures payment and issues a cryptographically sealed audit receipt.",
+        "responses": {
+          "200": { "description": "Payment captured and receipt generated" }
+        }
+      }
+    }
+  }
+}
